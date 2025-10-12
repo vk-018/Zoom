@@ -1,0 +1,37 @@
+                                             Flow of Project
+1. Requirement gathering Phase:-
+   ->in this phase full fleged planning is done, flowcharts are made how to build this project from base.
+   (i)- Auth Routes:-
+        -> Auth Guards: these are the middlewares which protect the rotes  , a token is used to pass them and access thse Routes
+        -> so step 1 is to decide which route should be guarded (eg . the dashboard) and which one should stay free   (eg login page)
+
+    (ii)- set up database to to keep recor of userd
+    (iii)- set up home page , login page which wont be guarded
+    (iv)- from dashboard drect to meeting homepage  (where meeting id can be inserted)
+    (v)- maintain a database for meetings
+    (vi)-
+
+
+2. Technology used:-
+(i)- Mongo DB as database   (make db first)   [Alternative Sql]
+(ii)- BACkend : -
+    -> bcrypt  : A library used for password encryption (hashing).
+                Converts plain-text passwords into an irreversible encrypted form before saving them in the database.
+    -> socket io : A real-time communication library built on top of WebSockets.
+                  Enables instant, bidirectional communication between the client and server — essential for features like chats, notifications, live updates, or multiplayer games.
+                  Automatically handles fallback to Long Polling when WebSockets are not supported by the browser.
+
+#LONG POLLING:- it is a technique where the client makes a req to the server and the server holds the req until a new data is avilable
+                effictively it keeps the connectionopen for a longer time ,helps in reducing latency for real time updates
+    -> Express JS: to build server side application (backend),like apis,webserves, routing logic   [Alternative: next js, fastify(fast)]
+                    Handles HTTP requests (like GET, POST) and responses efficiently.
+                    Provides a clean structure to build scalable applications.
+(iii)- Front End:-
+     -> Material Ui: to import React Component
+     -> Axios: to send req from front end to backend, it is a promise based http client
+     -> WebRTC: A browser API that enables real-time audio, video, and data communication directly between users (peer-to-peer).
+     -> css, REact  : a js library used to make user interface by making resuable components
+
+3. CORS:-
+    
+    

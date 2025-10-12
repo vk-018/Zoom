@@ -1,0 +1,5 @@
+1. Create 2 folders Bakcend and front End
+(i)- create json file in backend, and install req modules  [express, mongoose,brypt,http-status,socket.io]
+    -> The http-status-codes npm package helps developers write cleaner, self-explanatory server responses by replacing raw numbers like 404 or 500 with readable constants like StatusCodes.NOT_FOUND.
+2. setup Database at mongo Atlas
+3.

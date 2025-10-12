@@ -1,0 +1,54 @@
+CORS
+
+What is CORS?
+CORS, which stands for Cross-Origin Resource Sharing, is a security feature implemented by web browsers to control how web applications can request resources from different origins (domains).
+ The primary purpose of CORS is to prevent malicious websites from making unauthorized requests to another site on behalf of the user.
+ To protect users, browsers restrict JavaScript on one website from making requests to another website unless that other site explicitly allows it.
+This prevents malicious sites from stealing data from other websites (called Cross-Site Request Forgery or CSRF).
+
+How does it work?
+When a web application makes a request to a resource on a different origin (domain, protocol, or port  eg. https://example.com:443), the browser checks if the target server allows the request. This is done by the server sending speci?c HTTP headers in its response. These headers dictate what types of requests are allowed from different origins.
+#If your frontend and backend run on different origins, the browser will block requests by default for security reasons.
+
+Example :
+Imagine you have a web application hosted on delta.com, and it needs to make a request to an API hosted on zoom.delta.com.
+ By default, the browser will block this request due to the Same-Origin Policy. However, if the API server includes the appropriate CORS headers in its response, such as Access-Control-Allow-Origin: delta.com, the browser will allow the request to proceed.
+ The Same-Origin Policy is a security rule built into browsers that prevents JavaScript on one origin from reading or modifying data from another origin unless explicitly allowed.
+
+
+Important CORS Headers
+
+1. Access-Control-Allow-Origin: Speci?es which origins are allowed to access the resource. It can be a speci?c origin or a wildcard (*), which allows any origin.
+2. Access-Control-Allow-Methods: Lists the HTTP methods (e.g., GET, POST, PUT,
+DELETE) that are permitted for cross-origin requests.
+3. Access-Control-Allow-Headers: Speci?es which HTTP headers can be used in the actual request.
+4. Access-Control-Allow-Credentials: Indicates whether the request can include user credentials (cookies, HTTP authentication, etc.).
+5. Access-Control-Expose-Headers: Indicates which headers can be exposed to the browser.
+
+
+
+
+#Egample:-
+Fixing CORS in Express.js
+
+Install and use the cors middleware:
+
+npm install cors
+
+
+Then in your Express app:
+
+const express = require('express');
+const cors = require('cors');
+const app = express();
+
+app.use(cors()); // allows all origins (not recommended for production)
+
+
+Or restrict it to specific origins:
+
+app.use(cors({
+  origin: 'http://localhost:3000', // only allow your frontend
+  methods: ['GET', 'POST'],
+  credentials: true
+}));

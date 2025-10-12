@@ -1,0 +1,91 @@
+1. Socket: it is the endpoint of an connetion
+           when we say two devices are connected there endpoints or thier sockets are connected
+
+           -> generally for a machine its socket is IP+ Port
+           -> one single machine can have multiple sockets
+
+#Protocol : set of rules which need to be followed to establish a successful connection
+
+2. TCP- Transmission Control Protocol:-
+   (i)- Used for most internet-based communications, such as web browsing, file uploads/downloads, or sending emails.
+   (ii)_Reliable: Ensures data arrives correctly and in the right order (detects and corrects errors).
+   (iii) -Connection-oriented: A stable connection is established before data transfer begins.
+   (iv)Slower compared to UDP due to error checking and acknowledgment mechanisms.
+
+3. UDP - User datagram Protocol
+->Faster but less reliable — packets can be lost or arrive out of order.
+->Connectionless: No formal connection setup; data is sent without verifying receipt.
+->Ideal for real-time applications where speed matters more than perfect accuracy — e.g.:
+   Video or voice calls, Online gaming ,Live streaming
+
+4. WebRTC:-   [Web Real-Time Communication]
+
+#WebRTC (Web Real-Time Communication) is a technology that enables Web applications and sites to capture and optionally stream audio and/or video media,
+as well as to exchange arbitrary data between browsers without requiring an intermediary
+
+(i)- it is used where real-time data transfer is needed eg. chat,video calls
+(ii)- it is primarily based on UDP
+(iii)- it is an open source protocol 
+(iv)- its Bi-Directional : sending and recieving both can be done through both the endpoints
+(v)- eleminate need of thirdy part apps
+
+#Video call without WebRTC:-
+(i) numerous clients(devices) are get connected to common server through the app
+(ii)- clients dont know each others address but they know how servers address(port), so each client will send its video(some data)
+      to the server and now server will forward thie data to the recieptent......(and this whole process will be bidirectionsal)
+(iii)- this method is highly reliable but Slower
+
+#Video call with WebRTC:-
+(i)- After a certain point WebRtc establishes a direct connection btw two points,throufh which they can communicate
+(ii)- this method is Lag free.
+(iii)- so this will be preferred
+
+5. Work flow 
+# WebRtc works in 4 diff stages:-  (diff protocols /rules are folowed in each stage)
+5.1) Signalling:-
+(i)  it have a signalling server which works on  a protocol called SDP (session description protocol)
+(ii)- it is responsible for sharing info of two devices between them  (info means socket address i.e the IP address)
+
+5.2 - Connecting
+(i)- it works on ICE protocol
+(ii)- as now both the client have each others endpoint address , they establish connection in this stage
+
+5.3 Securing:-
+(i)- they work on DLTS and SRTP protocols
+(ii)- this stage is used to secure the established connection
+(iii)- it involves Encryption, security certification
+
+
+5.4 Communicating:-
+(i)-uses RTP and SCTP protocol.
+(ii)- data transfer begins
+
+
+6. USING WebRTC:-
+(i) it is already inbulit in the browsers in form of API's
+    -> RtcPeerChannel:  The RTCPeerConnection interface represents a WebRTC connection between the local computer and a remote peer. 
+                        It provides methods to connect to a remote peer, maintain and monitor the connection, and close the connection once it's no longer needed.
+    -> MediaStream: it is used to capture videos from our devices using the camera
+    -> RtcDataChannel:   The RTCDataChannel interface represents a network channel which can be used for bidirectional peer-to-peer transfers of arbitrary data. 
+
+7. WebRTC Architecture:-   [ a recommended format how we should use WebRTC]
+
+(i)- P2P  (Peer to Peer):-
+   -> all the clients(devices connected) share data directly with each other.
+   -> now as in this case there will be large number of seprare communication channels, so resouce consumetion per pc will be high  [but all devices have a fixed bandwidth,cpu,memory]
+   -> no suited in case of large number of clients
+   ->sending to n-1 nodes , recieving form n-1 one nodes
+
+(ii)- SFU  [selective Forwarding Unit]:-
+     -> we add a 'server' which acts as the cental node of the ntw.
+     -> it recives data from all the nodes and frowards it to the supposed recieptent.
+     -> now each client is req. to send its data once only (to the central node), thus number of sending channel reduces
+     -> now if resources of any one client is limited then server will adjust the packets(like only audio in a video call),  
+     -> in this architecture client is slightly less loaded, server is heavilty loaded
+     -> sneding to 1, recieving from n-1
+(iii)- MCU [Multi Point Control Unit]
+      -> in case of sfu the server maintains n number of data channels with the client to send data wehere n is the number of clients who wanted to send data to the reciever
+         but in case of MCU, server combines all the channels and then send it to the recieptent , so in total each client ahve just two channels  (one for sending , one recieving)
+      ->he server bears heavy CPU usage (due to decoding, mixing, re-encoding).
+      -> eg webinars  (large number of recievers)
+
