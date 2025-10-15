@@ -31,10 +31,7 @@ DELETE) that are permitted for cross-origin requests.
 #Egample:-
 Fixing CORS in Express.js
 
-Install and use the cors middleware:
-
 npm install cors
-
 
 Then in your Express app:
 

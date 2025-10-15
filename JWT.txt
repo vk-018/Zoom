@@ -1,0 +1,133 @@
+                        JWT
+
+1. Public / Private Cryptography:-
+(i)- cryptography is tech of securing our communication such that only the recieptent can read it.
+(ii)- in public /pvt cryptography we have two keys , one public one pvt
+      anyone can have the public key ,it is used to encrypt the data...but pvt key should be with u only ,it is used to decrypt the data.
+
+2. State:-
+(i) - State: State is the information about the current status of a client on the server.
+(ii) Session:A session is a single continuous interaction between a client and a server
+(iii) StateFul: A protocol is stateful if the server remembers all session information and status data for each client.
+(iv)Stateless: A protocol is stateless if the server does not retain client session information
+
+-> JWT works on stateless protocol, it maintais a Token who has this can access the Data, no matter how u are accessing this token
+
+3.What is json Web Token:-
+(i)- It’s a compact, URL-safe way to securely send or recieve information between parties as a JSON object
+(ii) many differnt type of algorithms are ueed to encrypt the data for eg. SHA , HS256
+(iii)- basically jwt is a long string which consists of 3 difffernt part seprated by a dot
+
+       -> header: The header typically consists of two parts: the type of the token, which is JWT, and the signing algorithm being used, such as HMAC SHA256 or RSA.
+         eg. {
+             "alg": "HS256",
+             "typ": "JWT"
+             }
+        -> Payload: The second part of the token is the payload, which contains the claims. Claims are statements about an entity (typically, the user) and additional data. 
+                    [basically 2nd   part contains the data and some user info and things like expiry time]
+          
+        -> Signature: its a secret string used veify the data.  [signature verifies the integrity of the data]
+
+4.  Autohentication means to verify the client is a valid user or not. in authentication we check weather this particular user is allowed to access this page....
+    eg u are not authorized to acess the admin page even if u have successfully logged in as a valid user.
+
+
+    -> in jwt upon succeefull login ,id token is created , this is used to authenticate
+    -> to access protected routes (authorization)  a access token is generated and passed too the client
+
+
+5. Complete WorkFlow of a Token:-
+How are they used in the authentication flow?
+ Step 1: The user provides their credentials (e.g., username and password) to authenticate
+ with the server.
+ Step 2: Upon successful authentication, the server generates a token and sends it back to
+ the client.   Server sends token to client (usually in Authorization: Bearer <token> header or httpOnly cookie).
+
+       ->  server has nothing to store not so Jwt is client storage type login
+ Step 3: The client stores the token, typically in local storage or a cookie.
+ Step 4: For subsequent requests, the client includes the token in the HTTP headers (usually
+ in the Authorization header) to access protected resources.
+ Step 5: The server verifies the token to check if the request is authenticated and authorized.
+
+6. WorkFlow of Session BAsed LOgin
+
+User logs in (username/password).
+Server creates a session object on the server:
+eg.
+req.session.userId = 123;
+
+Server generates a session ID (random string) and sets it in a cookie in the browser:
+eg. 
+Set-Cookie: connect.sid=abc123; HttpOnly; Path=/
+
+Browser sends cookie with each request.
+Server looks up session ID → retrieves stored session data.  and gives access
+
+7. Key Differences
+| Feature                     | Session-Based                | JWT-Based                      |
+| --------------------------- | ---------------------------- | ------------------------------ |
+| Storage                     | Server-side                  | Client-side (token)            | [session object is still stored in server ,client is storing just the id cookie, but in jwt
+                                                                                                 one token transferred server stores nothing, only the client stored the token
+| Stateless?                  | No                           | Yes                            |   [in session sever must track all active logins, not in jwt]
+| Scalability                 | Needs shared session store   | Easy to scale                  |
+| Logout / revocation         | Easy (delete server session) | Hard (token still valid)       |       [session object destroys with logout, not same in jwt]
+| Cross-domain / API-friendly | Limited                      | Excellent                      |       
+| Security                    | Safer from token theft       | Must protect token (XSS, CSRF) |   
+
+
+#USE:-
+    If you have a classic web app with server-rendered pages → use sessions.
+    If you have an API / SPA / mobile app → use JWT.
+
+8. Using JWT with Express: -
+   (i) Creating Token:-
+       npm install jsonwebtoken  and import jwt from it
+(ii) To sign a token, you will need to have 3 pieces of information:
+
+-> The token secret: The token secret is a long random string used to encrypt and decrypt the data.
+-> The piece of data to hash in the token: The piece of data that you hash in your token can be something either a user ID or username or a much more complex object. 
+                                         In either case, it should be an identifier for a specific user.
+-> The token expire time: The token expire time is a string, such as 1800 seconds (30 minutes), that details how long until the token will be invalid.
+
+(iii)   - create a fn getToken to generate JWT:-
+       function generateToken(user) {
+         return jwt.sign(
+              { id: user.id, email: user.email },
+                process.env.JWT_SECRET,
+              { expiresIn: process.env.JWT_EXPIRES_IN }
+             );
+             }
+(iv)-define normal register route, generate and return the token in case of successful login in login route
+(v)  define  A VERIFICATION MIDDLEWARE, BY EXTRACTING THE AUTHORIZAION header then us json.verify
+(vi) use the middleware on protected routes
+
+
+# Alternate will be to use Cookies:-
+(i)- app.use(cookieParser());
+(ii)- store the token as cookie:-
+  res
+    .cookie("accessToken", Token, {
+      httpOnly: true,
+      secure: true, // only over HTTPS
+      sameSite: "strict",
+      maxAge: 15 * 60 * 1000, // 15 min
+    })
+
+(iii) Authentication MiddleWare:-
+    function authenticateToken(req, res, next) {
+  const token = req.cookies.accessToken;
+  if (!token) return res.status(401).json({ message: "Access denied" });
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) return res.status(403).json({ message: "Token expired or invalid" });
+    req.user = user;
+    next();
+  });
+}
+(iv) destroy cookie:-
+app.post("/logout", (req, res) => {
+  res
+    .clearCookie("accessToken")
+    .json({ message: "Logged out" });
+});
+
