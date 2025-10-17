@@ -52,5 +52,31 @@ Handles logging, monitoring, and scaling
 7. connect databse from mongo Atlas
 
 8. add cors,json parsing and urlendoed to accept from data
-9. create router to handle similar route requests
+9. create router to handle similar path requests
+10. create uttiliies like WrapAsync, fns related to jwt
+11. we will use JwT for authentication:-
+    -> first make register route
+    -> then login route: in the login route create a random text using cypto.randomBytes(size).toString("hex"); and store it in the token field of the user document....it will be used 
+      for verification in some cases.   eg. forget password, by using this we can avoid exposing some vulnerable info to the local storage,
+      we can directly access the info from databse using this token , no need of putting real data in local storage
+      
+     so we will use two tokens
+
+JWT → for authentication (short-lived access token)
+Random token (crypto) → for refresh or verification (long-lived, stored in DB)
+This pattern is called JWT + Refresh Token authentication,
+   ->
+
+
+
+
+
+
+
+
+
+
+
+
+
 

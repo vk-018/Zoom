@@ -13,7 +13,7 @@ import cors from "cors";
 import connectToSocket from "./controllers/socketmanager.js";   //fn to connct socket.io with node-http creates serevr
 
 //importing routers
-import users from "./routes/users.routes.js";
+import userRoutes from "./routes/users.routes.js";
 
 
 
@@ -47,8 +47,8 @@ async function main() {
   await mongoose.connect(process.env.MONGO_URL);
 }
 
-app.use("/users",users);          //using users router         -> all the req to path /users.... will be handeled by this route
-
+app.use("/api/v1/users",userRoutes);          //using users router         -> all the req to path /users.... will be handeled by this route
+//we are defining our apis like this bcoz (i) to specify that this is an api call(means this is not just rendering of a static file) ,(ii) if we make any chnages later we can roll out different versions
 app.get("/", (req,res)=>{
     return res.json({"hello":"working"});
 })

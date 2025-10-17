@@ -1,42 +1,20 @@
 import express from "express";
-import User from "../models/users.model.js";
-import bcrypt from "bcrypt";
-import httpStatus from "http-status";
-
+// import User from "../models/users.model.js";
+// import bcrypt from "bcrypt";
+// import httpStatus from "http-status";         //help in generating status code
+import wrapAsync from "../utilities/wrapAsync.js";
+// import jwt from "jsonwebtoken";
+// import { generateToken } from "../utilities/jwt.js";
+// import crypto from "crypto";
+import { signin,signup } from "../controllers/users.contollers.js";
 const router=express.Router();
 
-router.post("/register",async (req,res)=>{
-  try{
-    //console.log(req.body);
-    
-    let {username,password}= req.body;
-    const data= await User.find({userName:username});        //returns an array
-    if(data.length!==0){
-        res.status(httpStatus.FOUND).json({message:"User already Registered"});
-    }
-    else{
-        const saltRounds=10;
-        const hash=await bcrypt.hash(password,saltRounds);
-        //console.log(hash);
-        let newUser= new User({
+router.route("/register")
+   .post(wrapAsync(signup));
 
-            name:req.body.name,
-            userName: req.body.username,
-            password: hash,
+//fn to generate token:-
+router.route("/login")
+    .post(wrapAsync(signin));
 
-        });
-
-        await newUser.save().then(()=>{
-            console.log("saved");
-        });
-
-        res.status(httpStatus.CREATED).json({message:"User Creted"});
-    }
-   }
-   catch(err){
-     console.log(err);
-     res.status(httpStatus.BAD_REQUEST).json({err : "error has occured"});
-   }
-})
 
 export default router;
