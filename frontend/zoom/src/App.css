@@ -1,0 +1,147 @@
+.landingPageContainer{
+    
+    width :100vw;
+    height: 100vh;
+    background: url("./final.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    overflow: auto; /* or: display: flow-root; */ 
+    /*to avoid margin collapse of parent*/
+
+}
+
+/* styling navbar*/
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border:solid white 2px;
+    border-radius: 14px;
+    margin-left: 4rem;
+    margin-right: 4rem;
+    margin-top: 3rem;
+    
+}
+.navHeader h2{
+    font-size: 1.5rem;
+    
+}
+.navList{
+    display:flex;
+    gap: 1rem;
+    padding-top: 0.2rem;
+}
+.anchor{
+    font-size: 1.2rem;
+    color:white;
+    text-decoration: none;
+
+}
+.anchor:hover {
+    color: white;
+}
+
+
+/*styling main landing page container*/
+.landingPageMainContainer{
+    display: flex;
+    justify-content: space-between;
+    gap:10px;
+    padding: 5rem;
+}
+.landingPageMainContainer .imgSide{
+    padding-right:3rem;
+}
+.landingPageMainContainer .imgSide img{
+    max-height: 65vh;
+    width:auto;
+    border-radius: 14px;
+}
+.landingPageMainContainer .textSide{
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    font-size: 1 rem;
+}
+
+.btnStart{
+    color: white;
+    font-size: 1.25rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    /* font-weight: 300; */
+}
+
+/*Styling Auth Page*/
+
+.authPageContainer{
+    height: 100vh;
+    width: 100vw;
+    background-image: url('./login1.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    overflow: auto;
+    background-position: center;
+    position: relative;
+}
+
+.loginCard{
+    width: fit-content;
+    max-width: 27%;
+    height: fit-content;
+    backdrop-filter: blur(10px);
+    position: absolute;
+    left: 11%;
+    top:15%;
+    border-radius: 15px;
+    border: solid white 1.5px;
+    padding: 0.75rem;
+    padding-top:0.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.loginForm{
+    margin-top: 2.5%;
+    width:100%   !important;
+    padding: 0px;
+}
+.loginInpBox{
+    width:100%;
+    margin: 0.5rem 0rem 0.5rem 0rem   !important;
+}
+
+.loginInpBox .MuiOutlinedInput-root fieldset{   /*to control the outline*/
+    border-radius: 25px;
+    border: solid #1976d2 2px;
+}
+.loginInpBox .MuiOutlinedInput-root:hover fieldset {
+  border-color: #1976d2;
+}
+.loginInpBox .MuiInputBase-input::placeholder {
+  color: #999;
+  font-weight: 600;
+  opacity: 1;
+}
+.loginInpBox .MuiInputBase-input {
+  color: whitesmoke;
+  font-weight: 400;
+  opacity: 1;
+}
+.loginInpBox label {
+  color: white;
+}
+
+.btnLogin{
+    width: 75%;
+    border-radius: 25px     !important;
+    color: #1976d2       !important;
+    background-color: white     !important;
+    font-weight: 600  !important;
+    font-size: 1.2rem   !important;
+    padding: 0rem 1rem 0rem 1rem   !important;
+}
+

@@ -1,0 +1,106 @@
+                                       #FRONT END
+1. Set Directory : (i) folder pages   (ii) contexts (iii)- utils    inside src
+  then landing.jsx inside pages and now using react snippets extension use rfc to load a component template
+
+2. pick a design template and then try to make it using js and css
+
+3. use material ui i.e. pre made components and apply any kind of modifications if needed
+
+4. Make all default things unaffective by setting  * {         //even the browser styles are ineffective
+    margin: 0
+    padding:0
+    box-sizing:border-box    //width will include padding and margin also
+}
+
+5. Use of React Router:-
+(i)- React Router is a popular library used in React applications to handle navigation and routing — that is, controlling what content appears on the screen based on the URL.
+(ii)- USe:-
+    -> Single Page Application (SPA) navigation: React Router lets you show different components or views as if you were navigating between pages — but without reloading the browser.
+    -> Dynamic routing: You can build routes dynamically, e.g. /user/:id, and access parameters like.
+
+| Concept             | Description                                                         |
+| ------------------- | ------------------------------------------------------------------- |
+| **`BrowserRouter`** | Uses the browser’s history API to manage URLs (most common).        |
+| **`Routes`**        | Groups multiple `Route` components.                                 |
+| **`Route`**         | Defines a path → component mapping.                                 |
+| **`Link`**          | Creates navigation links that don’t reload the page.                |
+| **`useNavigate()`** | A hook to navigate programmatically (like redirecting after login). |
+| **`useParams()`**   | Access route parameters, e.g., `/user/:id`.                         |
+| **`useLocation()`** | Get info about the current URL (useful for analytics, etc.).        |
+
+6.  ->  define str of router in app.jsx
+
+7. start building landing .jsx
+(i)- set background image
+(ii) then set navbar
+(iii) than main landing page container
+8. all css will be written in same app.css
+9. npm i axios http status socket.io-client
+10. Start building auth page...use bootstrap in styling by installing react-bootstrap and bootstrap
+11. USing material ui
+(i) This code imports:
+Box → a wrapper div-like component that accepts sx (MUI’s inline styling system)
+TextField → pre-styled input components with variants (outlined, filled, standard)
+
+(ii)
+
+component="form" → makes the Box act like a <form>
+sx={{ ... }} → applies styles using MUI’s system prop
+& > :not(style) → applies the style to all direct children of the form
+{ m: 1 } → gives margin spacing
+{ width: '25ch' } → sets width equal to 25 characters
+noValidate → disables browser default validation
+autoComplete="off" → prevents autofill suggestions
+
+12. Looking to implement sign in and sign up both on same page
+(i)- set the states
+(ii)- set a state open to implement snackbar and a state formstate for sign in and sign up
+(iii)- write onclick and on change
+
+13. Rest auth part we will write in authcontext
+-> then write register and login fns
+-> handle submit on authiction jsx
+-> continuosly co ordinate with back end server , never shy from using chat gpt
+-> Implemnet Snaackbar
+-> to use jwt as cookie we should chnage the 
+
+14. -> use hooke useform and 
+const {
+    register,          //Connects each input field to the form state.
+    handleSubmit,        //Wraps your submit function.-> Automatically prevents default form submission and passes validated form data.
+    formState: { errors },    //Tracks validation errors for each field.
+    setError,        //seterror for validation
+    clearErrors,           ///clear errror
+} = useForm({
+    defaultValues: { name: "", userName: "", password: "" },
+});
+for form validation
+all the values are different from fns already in use so use key:keyname str during imports
+
+->coordinate btw user controller at backend and auth context as middle page and authenitication.jsx final front end
+-> show errors using cllapse snd show notifications using snackbar
+-> const router = useNavigate(); comes from React Router DOM (v6+), and it’s one of the main hooks used for programmatic navigation — i.e. to change pages from inside your code (JS), instead of using a <Link> component.
+-> useNavigate() returns a function — often stored as router or navigate.
+-> You can call it to change the current route (URL) inside your React app.
+-> React Router’s internal context provides a navigator object that useNavigate() wraps.
+-> When you call router("/path"), it triggers a re-render and updates the browser’s URL without a full page reload — this is why it feels instant and smooth.
+
+
+15.  create 3rd component video meet:-
+(i)useRef: ChatGPT said:
+-> In web development, particularly in React, the useRef hook is a special tool that lets you directly access 
+   and store a mutable reference to a DOM element or a value that persists between renders without causing re-renders.
+-> const ref = useRef(initialValue);
+
+useRef() returns an object like:
+{ current: initialValue }
+
+You can change ref.current anytime.
+Changing it does not trigger a re-render.
+The same ref object persists for the entire lifetime of the component.
+
+(ii)- Stun server:-
+
+
+
+

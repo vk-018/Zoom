@@ -17,8 +17,8 @@ function generateToken(user){
 
 function authenticateToken(req,res,next){
     const authHeader= req.headers["authorization"];
-    const token= authHeader && authHeader.split(' ')[1];
-
+    const token= ((authHeader && authHeader.split(' ')[1]) || req.cookies.token) // 👈 Extract token from cookie;
+//at least one method will give token
     if(!token){
         return res.status(httpStatus.FORBIDDEN).json({msg:"Token missing"});
     }

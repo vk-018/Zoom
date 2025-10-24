@@ -65,7 +65,25 @@ Handles logging, monitoring, and scaling
 JWT → for authentication (short-lived access token)
 Random token (crypto) → for refresh or verification (long-lived, stored in DB)
 This pattern is called JWT + Refresh Token authentication,
-   ->
+
+12. then after writing sifn up and sign in routes we move to WebSockets
+13. Write complete logic for sockets  (connect ,disconnect, chat)
+14. handle Cors for Socket (it shd be done separately even cors has already been used with app)
+bcoz
+
+app.use(cors(...))
+Only affects Express/HTTP routes (app.get(), app.post(), etc.).
+Adds CORS headers to HTTP responses.
+
+Does NOT affect WebSocket connections, because after the initial handshake, Socket.IO/WebSocket communication doesn’t go through Express middleware.
+
+new Server(server, { cors: ... })
+Specifically controls Socket.IO/WebSocket handshake CORS.
+The browser checks the Origin header when initiating the WebSocket connection.
+Without this, a cross-origin frontend will be blocked from connecting, even if app.use(cors(...)) is present.
+
+15. Write add Activity and get Activity
+   -> 
 
 
 

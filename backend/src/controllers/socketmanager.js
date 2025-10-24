@@ -6,7 +6,14 @@ let timeOnline={};     //store socket id and thier connection time as key value 
 
 //this fn is connecting n0de -http created seever with the socket.io server
 const connectToSocket = (server) => {
-    const io= new Server(server);     //This line creates a new Socket.IO server instance that’s attached to your existing HTTP server.
+    const io= new Server(server, {              //upgarde the handskae from http to WebScoket and use cors to handle cross origin req
+        cors : { 
+            origin: "*",    //allow all
+            methods:["GET","POST"],
+            allowedHeaders: ["*"],
+            credentials: true,
+        }
+    });     //This line creates a new Socket.IO server instance that’s attached to your existing HTTP server.
 
     io.on("connection",(socket)=>{                //This registers a listener on the Socket.IO server (io) that fires every time a new client connects.
         console.log("user connected",socket.id);

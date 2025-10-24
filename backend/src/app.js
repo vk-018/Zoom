@@ -21,7 +21,13 @@ import userRoutes from "./routes/users.routes.js";
 
 const app=express();
 const port = process.env.PORT || 3000;   //defines port this way ro we can use app.set('port',3000)
-app.use(cors());       //allow all origins
+
+app.use(cors({                     //cant use allow all origin if using cookies
+  origin: "http://localhost:5173",  // React app
+  credentials: true,                // allow cookies and auth headers
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 app.use(express.json({limit: "40kb"}));
 //Purpose: Parses incoming requests with JSON payloads and makes them available on req.body.
 //Restricts the size of incoming JSON requests to 40 kilobytes.
@@ -49,7 +55,10 @@ async function main() {
 
 app.use("/api/v1/users",userRoutes);          //using users router         -> all the req to path /users.... will be handeled by this route
 //we are defining our apis like this bcoz (i) to specify that this is an api call(means this is not just rendering of a static file) ,(ii) if we make any chnages later we can roll out different versions
+
+
 app.get("/", (req,res)=>{
+    
     return res.json({"hello":"working"});
 })
 
